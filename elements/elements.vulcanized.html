@@ -12334,6 +12334,7 @@ module.exports = Array.isArray || function (arr) {
     // More info: https://visionmedia.github.io/page.js/
 
     // Set base path
+    // page.base('/polymer-starter-kit');
     page.base(window.location.pathname.replace(/\/$/, ''));
 
     // Middleware
@@ -12368,7 +12369,7 @@ module.exports = Array.isArray || function (arr) {
 
     // add #! before urls
     page({
-      hashbang: true
+      hashbang: false
     });
 
   });
