@@ -18,7 +18,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     // Set base path
     // page.base('polymer-starter-kit');
-    page.base(window.location.pathname.replace(/\/$/, ''));
+    // page.base(window.location.pathname.replace(/\/$/, ''));
+    app.base = window.location.pathname;
+    console.log('app.base: ',app.base);
 
     // Middleware
     function scrollToTop(ctx, next) {
@@ -27,20 +29,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     }
 
     // Routes
-    page('/', scrollToTop, function() {
+    page(app.base, scrollToTop, function() {
       app.route = 'home';
     });
 
-    page('/users', scrollToTop, function() {
+    page(app.base + 'users', scrollToTop, function() {
       app.route = 'users';
     });
 
-    page('/users/:name', scrollToTop, function(data) {
+    page(app.base + 'users/:name', scrollToTop, function(data) {
       app.route = 'user-info';
       app.params = data.params;
     });
 
-    page('/contact', scrollToTop, function() {
+    page(app.base + 'contact', scrollToTop, function() {
       app.route = 'contact';
     });
 
@@ -48,7 +50,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       console.log('page base: ',window.location.pathname,window.location.pathname.replace(/\/$/, ''));
       app.$.toast.text = 'Can\'t find: ' + window.location.href  + '. Redirected you to Home Page';
       app.$.toast.show();
-      page.redirect('/');
+      page.redirect(app.base);
     });
 
     // add #! before urls
