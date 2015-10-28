@@ -12336,7 +12336,6 @@ module.exports = Array.isArray || function (arr) {
     // Set base path
     // page.base('polymer-starter-kit');
     // page.base(window.location.pathname.replace(/\/$/, ''));
-    app.base = window.location.pathname;
     console.log('app.base: ',app.base);
 
     // Middleware
@@ -12364,7 +12363,7 @@ module.exports = Array.isArray || function (arr) {
     });
 
     page('*', function() {
-      console.log('page base: ',window.location.pathname,window.location.pathname.replace(/\/$/, ''));
+      console.log('app.base: ',app.base);
       app.$.toast.text = 'Can\'t find: ' + window.location.href  + '. Redirected you to Home Page';
       app.$.toast.show();
       page.redirect(app.base);

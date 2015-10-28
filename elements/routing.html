@@ -19,7 +19,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     // Set base path
     // page.base('polymer-starter-kit');
     // page.base(window.location.pathname.replace(/\/$/, ''));
-    app.base = window.location.pathname;
     console.log('app.base: ',app.base);
 
     // Middleware
@@ -47,7 +46,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     });
 
     page('*', function() {
-      console.log('page base: ',window.location.pathname,window.location.pathname.replace(/\/$/, ''));
+      console.log('app.base: ',app.base);
       app.$.toast.text = 'Can\'t find: ' + window.location.href  + '. Redirected you to Home Page';
       app.$.toast.show();
       page.redirect(app.base);
