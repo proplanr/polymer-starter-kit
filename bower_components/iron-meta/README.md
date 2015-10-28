@@ -15,22 +15,32 @@ Examples:
 
 If I create an instance like this:
 
-    <iron-meta key="info" keyUrl="foo/bar"></iron-meta>
+```html
+<iron-meta key="info" value="foo/bar"></iron-meta>
+```
 
-Note that keyUrl="foo/bar" is the metadata I've defined. I could define more
+Note that value="foo/bar" is the metadata I've defined. I could define more
 attributes or use child nodes to define additional metadata.
 
 Now I can access that element (and it's metadata) from any iron-meta instance
 via the byKey method, e.g.
 
-    meta.byKey('info').getAttribute('keyUrl').
+```javascript
+meta.byKey('info').getAttribute('value');
+```
 
 Pure imperative form would be like:
 
-    document.createElement('iron-meta').byKey('info').getAttribute('keyUrl');
+```javascript
+document.createElement('iron-meta').byKey('info').getAttribute('value');
+```
 
 Or, in a Polymer element, you can include a meta in your template:
 
-    <iron-meta id="meta"></iron-meta>
-    ...
-    this.$.meta.byKey('info').getAttribute('keyUrl');
+```html
+<iron-meta id="meta"></iron-meta>
+```
+
+```javascript
+this.$.meta.byKey('info').getAttribute('value');
+```
