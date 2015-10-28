@@ -17,7 +17,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     // More info: https://visionmedia.github.io/page.js/
 
     // Set base path
-    // page.base('/polymer-starter-kit');
     page.base(window.location.pathname.replace(/\/$/, ''));
 
     // Middleware
@@ -45,6 +44,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     });
 
     page('*', function() {
+      console.log('page base: ',window.location.pathname,window.location.pathname.replace(/\/$/, ''));
       app.$.toast.text = 'Can\'t find: ' + window.location.href  + '. Redirected you to Home Page';
       app.$.toast.show();
       page.redirect('/');
@@ -52,7 +52,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     // add #! before urls
     page({
-      hashbang: false
+      hashbang: true
     });
 
   });
