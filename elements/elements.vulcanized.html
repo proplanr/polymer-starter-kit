@@ -12334,7 +12334,11 @@ module.exports = Array.isArray || function (arr) {
     // More info: https://visionmedia.github.io/page.js/
 
     // Set base path
-    // page.base('polymer-starter-kit');
+    if (window.location.pathname !== '/') {
+      // page.base('/polymer-starter-kit');
+      page.base(window.location.pathname.replace(/\/$/, ''));
+    }
+
     // page.base(window.location.pathname.replace(/\/$/, ''));
     console.log('app.base: ',app.base);
 
