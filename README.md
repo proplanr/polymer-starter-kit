@@ -13,6 +13,9 @@
 * End-to-end Build Tooling (including [Vulcanize](https://github.com/Polymer/vulcanize))
 * [Recipes](/docs/README.md/) for ES2015 support, Polymer performance and using Chrome Dev Editor
 
+### Demo
+See latest Polymer Starter Kit Demo (from master) at http://polymerelements.github.io/polymer-starter-kit
+
 ## Getting Started
 
 To take advantage of Polymer Starter Kit you need to:

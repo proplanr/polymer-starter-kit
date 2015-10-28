@@ -19,6 +19,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <title>Polymer Starter Kit</title>
   <!-- Place favicon.ico in the `app/` directory -->
 
+  <!-- if not running from root (/):  uncomment next line of code and
+  replace polymer-starter-kit with your path -->
+  <link rel="shortcut icon" href="/polymer-starter-kit/favicon.ico"/>
+
   <!-- Chrome for Android theme color -->
   <meta name="theme-color" content="#2E3AA1">
 
@@ -74,17 +78,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         <!-- Drawer Content -->
         <paper-menu class="list" attr-for-selected="data-route" selected="[[route]]">
-          <a data-route="home" href="/" on-tap="onDataRouteClick">
+          <a data-route="home" href="{{baseUrl}}" on-tap="onDataRouteClick">
             <iron-icon icon="home"></iron-icon>
             <span>Home</span>
           </a>
 
-          <a data-route="users" href="/users" on-tap="onDataRouteClick">
+          <a data-route="users" href="users" on-tap="onDataRouteClick">
             <iron-icon icon="info"></iron-icon>
             <span>Users</span>
           </a>
 
-          <a data-route="contact" href="/contact" on-tap="onDataRouteClick">
+          <a data-route="contact" href="contact" on-tap="onDataRouteClick">
             <iron-icon icon="mail"></iron-icon>
             <span>Contact</span>
           </a>
@@ -157,7 +161,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               <paper-material elevation="1">
                 <h2 class="page-title">Users</h2>
                 <p>This is the users section</p>
-                <a href="/users/Rob">Rob</a>
+                <a href$="{{getUrl('/users/Addy')}}">Addy</a><br>
+                <a href$="{{getUrl('/users/Rob')}}">Rob</a><br>
+                <a href$="{{getUrl('/users/Chuck')}}">Chuck</a>
               </paper-material>
             </section>
 

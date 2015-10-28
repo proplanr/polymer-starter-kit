@@ -15,6 +15,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   // Learn more about auto-binding templates at http://goo.gl/Dx1u2g
   var app = document.querySelector('#app');
 
+  // Set default base url
+  app.baseUrl = '';
+
   app.displayInstalledToast = function() {
     // Check to make sure caching is actually enabled—it won't be in the dev environment.
     if (!Polymer.dom(document).querySelector('platinum-sw-cache').disabled) {
@@ -69,6 +72,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   // Scroll page to top and expand header
   app.scrollPageToTop = function() {
     app.$.headerPanelMain.scrollToTop(true);
+  };
+
+  // Get full url by adding base url (pathname)
+  app.getUrl = function(suffix) {
+    var base = '';
+    if (window.location.pathname !== '/') {
+      base = window.location.pathname.replace(/\/$/, '');
+    }
+    return base + suffix;
   };
 
 })(document);
