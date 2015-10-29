@@ -12369,6 +12369,7 @@ module.exports = Array.isArray || function (arr) {
 
     page('*', function() {
       app.$.toast.text = 'Can\'t find: ' + window.location.href  + '. Redirected you to Home Page';
+      console.log('app.$.toast.text: ',app.$.toast.text);
       app.$.toast.show();
       page.redirect('/');
     });
