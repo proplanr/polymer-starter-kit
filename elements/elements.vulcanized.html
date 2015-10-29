@@ -12335,9 +12335,11 @@ module.exports = Array.isArray || function (arr) {
     // More info: https://visionmedia.github.io/page.js/
 
     if (window.location.pathname !== '/') {
+      console.log('window.location.pathname: ',window.location.pathname);
       page.base(window.location.pathname);
       // page.base(window.location.pathname.replace(/\/$/, ''));
     } else {
+      console.log('window.location.pathname: ',window.location.pathname);
       // app.base = '/';
     }
 
