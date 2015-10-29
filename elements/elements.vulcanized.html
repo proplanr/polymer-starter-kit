@@ -12337,10 +12337,11 @@ module.exports = Array.isArray || function (arr) {
     if (window.location.pathname !== '/') {
       console.log('window.location.pathname: ',window.location.pathname.replace(/\/$/, ''));
       page.base(window.location.pathname.replace(/\/$/, ''));
+      app.base = window.location.pathname.replace(/\/$/, '');
       // page.base(window.location.pathname.replace(/\/$/, ''));
     } else {
       console.log('window.location.pathname: ',window.location.pathname);
-      // app.base = '/';
+      app.base = '/';
     }
 
     // Middleware
@@ -12372,7 +12373,7 @@ module.exports = Array.isArray || function (arr) {
       app.$.toast.text = 'Can\'t find: ' + window.location.href  + '. Redirected you to Home Page';
       console.log('app.$.toast.text: ',app.$.toast.text);
       app.$.toast.show();
-      page.redirect('/');
+      page.redirect(app.base);
     });
 
     // add #! before urls
