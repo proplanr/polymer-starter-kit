@@ -16,9 +16,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     // client-side router inspired by the Express router
     // More info: https://visionmedia.github.io/page.js/
 
-    // page.base(window.location.pathname.replace(/\/$/, ''));
-    console.log('app.base: ',app.base);
-
     // Middleware
     function scrollToTop(ctx, next) {
       app.scrollPageToTop();
@@ -26,28 +23,27 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     }
 
     // Routes
-    page(app.base, scrollToTop, function() {
+    page('/', scrollToTop, function() {
       app.route = 'home';
     });
 
-    page(app.base + 'users', scrollToTop, function() {
+    page('/users', scrollToTop, function() {
       app.route = 'users';
     });
 
-    page(app.base + 'users/:name', scrollToTop, function(data) {
+    page('/users/:name', scrollToTop, function(data) {
       app.route = 'user-info';
       app.params = data.params;
     });
 
-    page(app.base + 'contact', scrollToTop, function() {
+    page('/contact', scrollToTop, function() {
       app.route = 'contact';
     });
 
     page('*', function() {
-      console.log('app.base: ',app.base);
       app.$.toast.text = 'Can\'t find: ' + window.location.href  + '. Redirected you to Home Page';
       app.$.toast.show();
-      page.redirect(app.base);
+      page.redirect('/');
     });
 
     // add #! before urls
