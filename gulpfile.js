@@ -23,6 +23,7 @@ var glob = require('glob');
 var historyApiFallback = require('connect-history-api-fallback');
 var packageJson = require('./package.json');
 var crypto = require('crypto');
+var ghPages = require('gulp-gh-pages');
 
 var AUTOPREFIXER_BROWSERS = [
   'ie >= 10',
@@ -281,6 +282,20 @@ gulp.task('default', ['clean'], function (cb) {
     ['jshint', 'images', 'fonts', 'html'],
     'vulcanize', // 'cache-config',
     cb);
+});
+
+// Build then deploy to Github pages gh-pages branch
+gulp.task('deploy-gh-pages', function(cb) {
+  runSequence(
+    'default',
+    'deploy-gh-pages1',
+    cb);
+});
+
+// Deploy to Github pages gh-pages branch
+gulp.task('deploy-gh-pages1', function() {
+  return gulp.src('./dist/**/*')
+    .pipe(ghPages());
 });
 
 // Load tasks for web-component-tester
