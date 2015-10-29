@@ -12336,7 +12336,7 @@ module.exports = Array.isArray || function (arr) {
 
     if (window.location.pathname !== '/') {
       console.log('window.location.pathname: ',window.location.pathname.replace(/\/$/, ''));
-      page.base(window.location.pathname.replace(/\/$/, ''));
+      // page.base(window.location.pathname.replace(/\/$/, ''));
       // page.base(window.location.pathname.replace(/\/$/, ''));
     } else {
       console.log('window.location.pathname: ',window.location.pathname);
@@ -12374,7 +12374,7 @@ module.exports = Array.isArray || function (arr) {
     });
 
     // add #! before urls
-    page({
+    page.start({
       hashbang: true
     });
 
