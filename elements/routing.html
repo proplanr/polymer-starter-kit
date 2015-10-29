@@ -17,7 +17,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     // client-side router inspired by the Express router
     // More info: https://visionmedia.github.io/page.js/
 
-    page.base(window.location.pathname.replace(/\/$/, ''));
+    if (window.location.pathname !== '/') {
+      app.base = window.location.pathname;
+      // app.base = window.location.pathname.replace(/\/$/, '');
+    } else {
+      // app.base = '/';
+    }
 
     // Middleware
     function scrollToTop(ctx, next) {
