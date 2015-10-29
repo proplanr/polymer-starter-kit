@@ -12328,7 +12328,7 @@ module.exports = Array.isArray || function (arr) {
 });</script>
 <script>
   page.base(window.location.pathname.replace(/\/$/, ''));
-  
+
   window.addEventListener('WebComponentsReady', function() {
 
     // We use Page.js for routing. This is a Micro
@@ -12367,7 +12367,7 @@ module.exports = Array.isArray || function (arr) {
 
     // add #! before urls
     page({
-      hashbang: true
+      hashbang: false
     });
 
   });
