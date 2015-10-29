@@ -8603,6 +8603,8 @@ this.fire('dom-change');
 
       /**
        * Returns the currently selected item.
+       *
+       * @type {?Object}
        */
       selectedItem: {
         type: Object,
@@ -8644,10 +8646,20 @@ this.fire('dom-change');
       },
 
       /**
+       * The list of items from which a selection can be made.
+       */
+      items: {
+        type: Array,
+        readOnly: true,
+        value: function() {
+          return [];
+        }
+      },
+
+      /**
        * The set of excluded elements where the key is the `localName`
        * of the element that will be ignored from the item list.
        *
-       * @type {object}
        * @default {template: 1}
        */
       _excludedLocalNames: {
@@ -8667,15 +8679,12 @@ this.fire('dom-change');
     created: function() {
       this._bindFilterItem = this._filterItem.bind(this);
       this._selection = new Polymer.IronSelection(this._applySelection.bind(this));
-      // TODO(cdata): When polymer/polymer#2535 lands, we do not need to do this
-      // book keeping anymore:
-      this.__listeningForActivate = false;
     },
 
     attached: function() {
       this._observer = this._observeItems(this);
-      this._contentObserver = this._observeContent(this);
-      if (!this.selectedItem && this.selected) {
+      this._updateItems();
+      if (!this._shouldUpdateSelection) {
         this._updateSelected(this.attrForSelected,this.selected)
       }
       this._addListener(this.activateEvent);
@@ -8683,23 +8692,9 @@ this.fire('dom-change');
 
     detached: function() {
       if (this._observer) {
-        this._observer.disconnect();
-      }
-      if (this._contentObserver) {
-        this._contentObserver.disconnect();
+        Polymer.dom(this).unobserveNodes(this._observer);
       }
       this._removeListener(this.activateEvent);
-    },
-
-    /**
-     * Returns an array of selectable items.
-     *
-     * @property items
-     * @type Array
-     */
-    get items() {
-      var nodes = Polymer.dom(this).queryDistributedElements(this.selectable || '*');
-      return Array.prototype.filter.call(nodes, this._bindFilterItem);
     },
 
     /**
@@ -8744,23 +8739,27 @@ this.fire('dom-change');
       this.selected = this._indexToValue(index);
     },
 
-    _addListener: function(eventName) {
-      if (!this.isAttached || this.__listeningForActivate) {
-        return;
-      }
+    get _shouldUpdateSelection() {
+      return this.selected != null;
+    },
 
-      this.__listeningForActivate = true;
+    _addListener: function(eventName) {
       this.listen(this, eventName, '_activateHandler');
     },
 
     _removeListener: function(eventName) {
       this.unlisten(this, eventName, '_activateHandler');
-      this.__listeningForActivate = false;
     },
 
     _activateEventChanged: function(eventName, old) {
       this._removeListener(old);
       this._addListener(eventName);
+    },
+
+    _updateItems: function() {
+      var nodes = Polymer.dom(this).queryDistributedElements(this.selectable || '*');
+      nodes = Array.prototype.filter.call(nodes, this._bindFilterItem);
+      this._setItems(nodes);
     },
 
     _updateSelected: function() {
@@ -8821,18 +8820,9 @@ this.fire('dom-change');
       this._setSelectedItem(this._selection.get());
     },
 
-    // observe content changes under the given node.
-    _observeContent: function(node) {
-      var content = node.querySelector('content');
-      if (content && content.parentElement === node) {
-        return this._observeItems(node.domHost);
-      }
-    },
-
     // observe items change under the given node.
     _observeItems: function(node) {
-      // TODO(cdata): Update this when we get distributed children changed.
-      var observer = new MutationObserver(function(mutations) {
+      return Polymer.dom(node).observeNodes(function(mutations) {
         // Let other interested parties know about the change so that
         // we don't have to recreate mutation observers everywher.
         this.fire('iron-items-changed', mutations, {
@@ -8840,15 +8830,12 @@ this.fire('dom-change');
           cancelable: false
         });
 
-        if (this.selected != null) {
+        this._updateItems();
+
+        if (this._shouldUpdateSelection) {
           this._updateSelected();
         }
-      }.bind(this));
-      observer.observe(node, {
-        childList: true,
-        subtree: true
       });
-      return observer;
     },
 
     _activateHandler: function(e) {
@@ -8936,6 +8923,11 @@ this.fire('dom-change');
 
     multiChanged: function(multi) {
       this._selection.multi = multi;
+    },
+
+    get _shouldUpdateSelection() {
+      return this.selected != null ||
+        (this.selectedValues != null && this.selectedValues.length);
     },
 
     _updateSelected: function() {
@@ -9070,6 +9062,15 @@ this.fire('dom-change');
         type: String,
         observer: 'queryChanged'
       },
+
+      /**
+       * If true, the query attribute is assumed to be a complete media query
+       * string rather than a single media feature.
+       */
+      full: {
+        type: Boolean,
+        value: false
+      },
       
       /**
        * @type {function(MediaQueryList)}
@@ -9115,7 +9116,7 @@ this.fire('dom-change');
       if (!query) {
         return;
       }
-      if (query[0] !== '(') {
+      if (!this.full && query[0] !== '(') {
         query = '(' + query + ')';
       }
       this._mq = window.matchMedia(query);
@@ -12335,12 +12336,12 @@ module.exports = Array.isArray || function (arr) {
     // More info: https://visionmedia.github.io/page.js/
 
     if (window.location.pathname !== '/') {
-      console.log('window.location.pathname1: ',window.location.pathname.replace(/\/$/, ''));
+      console.log('window.location.pathname2: ',window.location.pathname.replace(/\/$/, ''));
       page.base(window.location.pathname);
       app.base = window.location.pathname;
       // page.base(window.location.pathname.replace(/\/$/, ''));
     } else {
-      console.log('window.location.pathname1 ==: ',window.location.pathname);
+      console.log('window.location.pathname2 ==: ',window.location.pathname);
       app.base = '/';
     }
 
