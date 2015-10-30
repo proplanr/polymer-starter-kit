@@ -12349,15 +12349,15 @@ module.exports = Array.isArray || function (arr) {
     // client-side router inspired by the Express router
     // More info: https://visionmedia.github.io/page.js/
 
-    // if (window.location.pathname !== '/') {
-    //   console.log('window.location.pathname4: ',window.location.pathname.replace(/\/$/, ''));
-    //   page.base(window.location.pathname.replace(/\/$/, ''));
-    //   app.base = window.location.pathname.replace(/\/$/, '');
-    //   // page.base(window.location.pathname.replace(/\/$/, ''));
-    // } else {
-    //   console.log('window.location.pathname3 ==: ',window.location.pathname);
-    //   app.base = '/';
-    // }
+    if (window.location.pathname !== '/') {
+      console.log('window.location.pathname5: ',window.location.pathname.replace(/\/$/, ''));
+      page.base(window.location.pathname.replace(/\/$/, ''));
+      app.base = window.location.pathname.replace(/\/$/, '');
+      // page.base(window.location.pathname.replace(/\/$/, ''));
+    } else {
+      console.log('window.location.pathname5 ==: ',window.location.pathname);
+      app.base = '/';
+    }
 
     // Middleware
     function scrollToTop(ctx, next) {
@@ -12366,7 +12366,7 @@ module.exports = Array.isArray || function (arr) {
     }
 
     // Routes
-    page('/', scrollToTop, function() {
+    page(app.base, scrollToTop, function() {
       app.route = 'home';
     });
 
@@ -12388,8 +12388,8 @@ module.exports = Array.isArray || function (arr) {
       app.$.toast.text = 'Can\'t find: ' + window.location.href  + '. Redirected you to Home Page';
       console.log('app.$.toast.text: ',app.$.toast.text);
       app.$.toast.show();
-      page.redirect('/');
-      // page.redirect(app.base);
+      // page.redirect('/');
+      page.redirect(app.base);
     });
 
     // add #! before urls
