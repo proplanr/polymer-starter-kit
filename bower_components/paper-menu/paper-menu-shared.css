@@ -38,3 +38,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 .selectable-content > ::content > *[colored]:focus:after {
   opacity: 0.26;
 }
+
+a {
+  pointer-events: none;
+}
+
+/* Fixes Firefox and Safari menu double click issue  */
+/*.selectable-content a > *, .selectable-content paper-item > *, .selectable-content paper-icon-item > * {
+  pointer-events: none;
+}*/

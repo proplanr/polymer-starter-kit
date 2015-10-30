@@ -8,4 +8,10 @@
           font-size: 24px!important;
         }
       }
+
+      /* Fixes Firefox and Safari menu double click issue, once   */
+      /*paper-menu a > *, paper-menu paper-item > *, paper-menu paper-icon-item > * {*/
+      paper-menu a > *, paper-menu paper-item > *, paper-menu paper-icon-item > * {
+        pointer-events: none;
+      }
     </style></template></dom-module>

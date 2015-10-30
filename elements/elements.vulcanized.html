@@ -12336,12 +12336,12 @@ module.exports = Array.isArray || function (arr) {
     // More info: https://visionmedia.github.io/page.js/
 
     if (window.location.pathname !== '/') {
-      console.log('window.location.pathname2: ',window.location.pathname.replace(/\/$/, ''));
-      page.base(window.location.pathname);
-      app.base = window.location.pathname;
+      console.log('window.location.pathname3: ',window.location.pathname.replace(/\/$/, ''));
+      page.base(window.location.pathname.replace(/\/$/, ''));
+      app.base = window.location.pathname.replace(/\/$/, '');
       // page.base(window.location.pathname.replace(/\/$/, ''));
     } else {
-      console.log('window.location.pathname2 ==: ',window.location.pathname);
+      console.log('window.location.pathname3 ==: ',window.location.pathname);
       app.base = '/';
     }
 
@@ -14635,6 +14635,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   opacity: 0.26;
 }
 
+a {
+  pointer-events: none;
+}
+
+/* Fixes Firefox and Safari menu double click issue  */
+/*.selectable-content a > *, .selectable-content paper-item > *, .selectable-content paper-icon-item > * {
+  pointer-events: none;
+}*/
+
 </style>
 
   <style>
@@ -15734,6 +15743,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         .page-title {
           font-size: 24px!important;
         }
+      }
+
+      /* Fixes Firefox and Safari menu double click issue, once   */
+      /*paper-menu a > *, paper-menu paper-item > *, paper-menu paper-icon-item > * {*/
+      paper-menu a > *, paper-menu paper-item > *, paper-menu paper-icon-item > * {
+        pointer-events: none;
       }
     </style></template></dom-module><dom-module id="my-greeting" assetpath="my-greeting/">
   <template>
