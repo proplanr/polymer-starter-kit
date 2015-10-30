@@ -12349,15 +12349,16 @@ module.exports = Array.isArray || function (arr) {
     // client-side router inspired by the Express router
     // More info: https://visionmedia.github.io/page.js/
 
-    // if (window.location.pathname !== '/') {
-    //   console.log('window.location.pathname3: ',window.location.pathname.replace(/\/$/, ''));
-    //   page.base(window.location.pathname.replace(/\/$/, ''));
-    //   app.base = window.location.pathname.replace(/\/$/, '');
-    //   // page.base(window.location.pathname.replace(/\/$/, ''));
-    // } else {
-    //   console.log('window.location.pathname3 ==: ',window.location.pathname);
-    //   app.base = '/';
-    // }
+
+    if (window.location.pathname !== '/') {
+      console.log('window.location.pathname4: ',window.location.pathname.replace(/\/$/, ''));
+      page.base(window.location.pathname.replace(/\/$/, ''));
+      app.base = window.location.pathname.replace(/\/$/, '');
+      // page.base(window.location.pathname.replace(/\/$/, ''));
+    } else {
+      console.log('window.location.pathname3 ==: ',window.location.pathname);
+      app.base = '/';
+    }
 
     // Middleware
     function scrollToTop(ctx, next) {
