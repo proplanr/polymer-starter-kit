@@ -12350,12 +12350,12 @@ module.exports = Array.isArray || function (arr) {
     // More info: https://visionmedia.github.io/page.js/
 
     if (window.location.pathname !== '/') {
-      console.log('window.location.pathname5: ',window.location.pathname.replace(/\/$/, ''));
+      console.log('window.location.pathname6: ',window.location.pathname.replace(/\/$/, ''));
       page.base(window.location.pathname.replace(/\/$/, ''));
       app.base = window.location.pathname.replace(/\/$/, '');
       // page.base(window.location.pathname.replace(/\/$/, ''));
     } else {
-      console.log('window.location.pathname5 ==: ',window.location.pathname);
+      console.log('window.location.pathname6 ==: ',window.location.pathname);
       app.base = '/';
     }
 
@@ -12366,6 +12366,10 @@ module.exports = Array.isArray || function (arr) {
     }
 
     // Routes
+    page('/', scrollToTop, function() {
+      app.route = 'home';
+    });
+
     page(app.base, scrollToTop, function() {
       app.route = 'home';
     });
@@ -12388,8 +12392,8 @@ module.exports = Array.isArray || function (arr) {
       app.$.toast.text = 'Can\'t find: ' + window.location.href  + '. Redirected you to Home Page';
       console.log('app.$.toast.text: ',app.$.toast.text, app.base);
       app.$.toast.show();
-      page.redirect('/polymer-starter-kit');
-      // page.redirect(app.base);
+      // page.redirect('/polymer-starter-kit');
+      page.redirect(app.base);
     });
 
     // add #! before urls
