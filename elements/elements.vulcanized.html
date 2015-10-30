@@ -12352,11 +12352,11 @@ module.exports = Array.isArray || function (arr) {
     if (window.location.pathname !== '/') {
       console.log('window.location.pathname6: ',window.location.pathname.replace(/\/$/, ''));
       page.base(window.location.pathname.replace(/\/$/, ''));
-      app.base = window.location.pathname.replace(/\/$/, '');
+      app.baseLocation = window.location.pathname.replace(/\/$/, '');
       // page.base(window.location.pathname.replace(/\/$/, ''));
     } else {
       console.log('window.location.pathname6 ==: ',window.location.pathname);
-      app.base = '/';
+      app.baseLocation = '/';
     }
 
     // Middleware
@@ -12370,7 +12370,7 @@ module.exports = Array.isArray || function (arr) {
       app.route = 'home';
     });
 
-    page(app.base, scrollToTop, function() {
+    page(app.baseLocation, scrollToTop, function() {
       app.route = 'home';
     });
 
@@ -12390,10 +12390,10 @@ module.exports = Array.isArray || function (arr) {
     page('*', function() {
       // http://proplanr.github.io/polymer-starter-kit/#!/polymer-starter-kit/
       app.$.toast.text = 'Can\'t find: ' + window.location.href  + '. Redirected you to Home Page';
-      console.log('app.$.toast.text: ',app.$.toast.text, app.base);
+      console.log('app.$.toast.text: ',app.$.toast.text, app.baseLocation);
       app.$.toast.show();
       // page.redirect('/polymer-starter-kit');
-      page.redirect(app.base);
+      page.redirect(app.baseLocation);
     });
 
     // add #! before urls
