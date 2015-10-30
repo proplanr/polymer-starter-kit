@@ -12386,10 +12386,10 @@ module.exports = Array.isArray || function (arr) {
     page('*', function() {
       // http://proplanr.github.io/polymer-starter-kit/#!/polymer-starter-kit/
       app.$.toast.text = 'Can\'t find: ' + window.location.href  + '. Redirected you to Home Page';
-      console.log('app.$.toast.text: ',app.$.toast.text);
+      console.log('app.$.toast.text: ',app.$.toast.text, app.base);
       app.$.toast.show();
-      // page.redirect('/');
-      page.redirect(app.base);
+      page.redirect('/polymer-starter-kit');
+      // page.redirect(app.base);
     });
 
     // add #! before urls
