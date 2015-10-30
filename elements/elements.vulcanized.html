@@ -12350,14 +12350,14 @@ module.exports = Array.isArray || function (arr) {
     // More info: https://visionmedia.github.io/page.js/
 
     if (window.location.pathname !== '/') {
-      console.log('window.location.pathname6: ',window.location.pathname.replace(/\/$/, ''));
+      console.log('window.location.pathname1 !==: ',window.location.pathname.replace(/\/$/, ''));
       page.base(window.location.pathname.replace(/\/$/, ''));
       app.baseLocation = window.location.pathname.replace(/\/$/, '');
-      // page.base(window.location.pathname.replace(/\/$/, ''));
-    } else {
-      console.log('window.location.pathname6 ==: ',window.location.pathname);
-      app.baseLocation = '/';
     }
+    // else {
+    //   console.log('window.location.pathname6 ==: ',window.location.pathname);
+    //   app.baseLocation = '/';
+    // }
 
     // Middleware
     function scrollToTop(ctx, next) {
