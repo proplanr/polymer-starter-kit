@@ -17,15 +17,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     // client-side router inspired by the Express router
     // More info: https://visionmedia.github.io/page.js/
 
-    if (window.location.pathname !== '/') {
-      console.log('window.location.pathname3: ',window.location.pathname.replace(/\/$/, ''));
-      page.base(window.location.pathname.replace(/\/$/, ''));
-      app.base = window.location.pathname.replace(/\/$/, '');
-      // page.base(window.location.pathname.replace(/\/$/, ''));
-    } else {
-      console.log('window.location.pathname3 ==: ',window.location.pathname);
-      app.base = '/';
-    }
+    // if (window.location.pathname !== '/') {
+    //   console.log('window.location.pathname3: ',window.location.pathname.replace(/\/$/, ''));
+    //   page.base(window.location.pathname.replace(/\/$/, ''));
+    //   app.base = window.location.pathname.replace(/\/$/, '');
+    //   // page.base(window.location.pathname.replace(/\/$/, ''));
+    // } else {
+    //   console.log('window.location.pathname3 ==: ',window.location.pathname);
+    //   app.base = '/';
+    // }
 
     // Middleware
     function scrollToTop(ctx, next) {
@@ -56,7 +56,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       app.$.toast.text = 'Can\'t find: ' + window.location.href  + '. Redirected you to Home Page';
       console.log('app.$.toast.text: ',app.$.toast.text);
       app.$.toast.show();
-      page.redirect(app.base);
+      page.redirect('/');
+      // page.redirect(app.base);
     });
 
     // add #! before urls
