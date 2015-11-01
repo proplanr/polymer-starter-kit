@@ -12349,15 +12349,12 @@ module.exports = Array.isArray || function (arr) {
     // client-side router inspired by the Express router
     // More info: https://visionmedia.github.io/page.js/
 
+    // Set base url if pathname is not / (root)
     if (window.location.pathname !== '/') {
-      console.log('window.location.pathname1 !==: ',window.location.pathname.replace(/\/$/, ''));
+      console.log('window.location.pathname !==: ',window.location.pathname.replace(/\/$/, ''));
       page.base(window.location.pathname.replace(/\/$/, ''));
       app.baseUrl = window.location.pathname.replace(/\/$/, '');
     }
-    // else {
-    //   console.log('window.location.pathname6 ==: ',window.location.pathname);
-    //   app.baseUrl = '/';
-    // }
 
     // Middleware
     function scrollToTop(ctx, next) {
@@ -12388,11 +12385,9 @@ module.exports = Array.isArray || function (arr) {
     });
 
     page('*', function() {
-      // http://proplanr.github.io/polymer-starter-kit/#!/polymer-starter-kit/
       app.$.toast.text = 'Can\'t find: ' + window.location.href  + '. Redirected you to Home Page';
       console.log('app.$.toast.text: ',app.$.toast.text, app.baseUrl);
       app.$.toast.show();
-      // page.redirect('/polymer-starter-kit');
       page.redirect(app.baseUrl);
     });
 
