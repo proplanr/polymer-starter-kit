@@ -20,11 +20,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     if (window.location.pathname !== '/') {
       console.log('window.location.pathname1 !==: ',window.location.pathname.replace(/\/$/, ''));
       page.base(window.location.pathname.replace(/\/$/, ''));
-      app.baseLocation = window.location.pathname.replace(/\/$/, '');
+      app.baseUrl = window.location.pathname.replace(/\/$/, '');
     }
     // else {
     //   console.log('window.location.pathname6 ==: ',window.location.pathname);
-    //   app.baseLocation = '/';
+    //   app.baseUrl = '/';
     // }
 
     // Middleware
@@ -38,7 +38,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       app.route = 'home';
     });
 
-    page(app.baseLocation, scrollToTop, function() {
+    page(app.baseUrl, scrollToTop, function() {
       app.route = 'home';
     });
 
@@ -58,10 +58,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     page('*', function() {
       // http://proplanr.github.io/polymer-starter-kit/#!/polymer-starter-kit/
       app.$.toast.text = 'Can\'t find: ' + window.location.href  + '. Redirected you to Home Page';
-      console.log('app.$.toast.text: ',app.$.toast.text, app.baseLocation);
+      console.log('app.$.toast.text: ',app.$.toast.text, app.baseUrl);
       app.$.toast.show();
       // page.redirect('/polymer-starter-kit');
-      page.redirect(app.baseLocation);
+      page.redirect(app.baseUrl);
     });
 
     // add #! before urls
