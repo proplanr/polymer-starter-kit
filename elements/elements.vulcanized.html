@@ -14644,11 +14644,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   opacity: 0.26;
 }
 
-.selectable-content > ::content > * > div,
+/*.selectable-content > ::content > * > div,
 .selectable-content > ::content > * > iron-icon,
 .selectable-content > ::content > * > span {
   pointer-events: none;
-}
+}*/
 
 </style>
 
@@ -15745,6 +15745,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         @apply(--paper-font-display2);
       }
 
+      paper-menu a > *, paper-menu paper-item > *, paper-menu paper-icon-item > * {
+        pointer-events: none;
+      }
+
       @media (max-width: 600px) {
         .page-title {
           font-size: 24px!important;
@@ -15752,9 +15756,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       /* Fixes Firefox and Safari menu double click issue   */
-      /*paper-menu a > *, paper-menu paper-item > *, paper-menu paper-icon-item > * {
+      paper-menu a > *, paper-menu paper-item > *, paper-menu paper-icon-item > * {
         pointer-events: none;
-      }*/
+      }
     </style></template></dom-module><dom-module id="my-greeting" assetpath="my-greeting/">
   <template>
     <style include="shared-styles"></style>
