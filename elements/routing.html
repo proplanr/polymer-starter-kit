@@ -19,10 +19,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     // Set base url if pathname is not / (root)
     if (window.location.pathname !== '/') {
-      console.log('window.location.pathname !==: ',window.location.pathname.replace(/\/$/, ''));
-      page.base(window.location.pathname.replace(/\/$/, ''));
       app.baseUrl = window.location.pathname.replace(/\/$/, '');
-      app.faviconUrl = window.location.pathname + 'favicon.ico';
+      page.base(app.baseUrl);
     }
 
     // Middleware
@@ -55,7 +53,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     page('*', function() {
       app.$.toast.text = 'Can\'t find: ' + window.location.href  + '. Redirected you to Home Page';
-      console.log('app.$.toast.text: ',app.$.toast.text, app.baseUrl);
       app.$.toast.show();
       page.redirect(app.baseUrl);
     });

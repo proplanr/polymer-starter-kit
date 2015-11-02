@@ -12351,10 +12351,8 @@ module.exports = Array.isArray || function (arr) {
 
     // Set base url if pathname is not / (root)
     if (window.location.pathname !== '/') {
-      console.log('window.location.pathname !==: ',window.location.pathname.replace(/\/$/, ''));
-      page.base(window.location.pathname.replace(/\/$/, ''));
       app.baseUrl = window.location.pathname.replace(/\/$/, '');
-      app.faviconUrl = window.location.pathname + 'favicon.ico';
+      page.base(app.baseUrl);
     }
 
     // Middleware
@@ -12387,7 +12385,6 @@ module.exports = Array.isArray || function (arr) {
 
     page('*', function() {
       app.$.toast.text = 'Can\'t find: ' + window.location.href  + '. Redirected you to Home Page';
-      console.log('app.$.toast.text: ',app.$.toast.text, app.baseUrl);
       app.$.toast.show();
       page.redirect(app.baseUrl);
     });
@@ -15756,10 +15753,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
       }
 
-      /* Fixes Firefox and Safari menu double click issue   */
-      paper-menu a > *, paper-menu paper-item > *, paper-menu paper-icon-item > * {
-        pointer-events: none;
-      }
     </style></template></dom-module><dom-module id="my-greeting" assetpath="my-greeting/">
   <template>
     <style include="shared-styles"></style>
