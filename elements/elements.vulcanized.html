@@ -12354,6 +12354,7 @@ module.exports = Array.isArray || function (arr) {
       console.log('window.location.pathname !==: ',window.location.pathname.replace(/\/$/, ''));
       page.base(window.location.pathname.replace(/\/$/, ''));
       app.baseUrl = window.location.pathname.replace(/\/$/, '');
+      app.faviconUrl = window.location.pathname + 'favicon.ico';
     }
 
     // Middleware
