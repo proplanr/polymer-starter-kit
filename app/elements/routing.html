@@ -17,10 +17,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     // client-side router inspired by the Express router
     // More info: https://visionmedia.github.io/page.js/
 
-    // Set base url if pathname is not / (root)
-    if (window.location.pathname !== '/') {
-      app.baseUrl = window.location.pathname.replace(/\/$/, '');
-      page.base(app.baseUrl);
+    if (window.location.port === '') {  // if production
+      console.log('app.baseUrl: ',app.baseUrl);
+      page.base(app.baseUrl.replace(/\/$/, ''));
     }
 
     // Middleware
