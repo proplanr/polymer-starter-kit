@@ -12350,10 +12350,12 @@ module.exports = Array.isArray || function (arr) {
     // More info: https://visionmedia.github.io/page.js/
 
     // Set base url if pathname is not / (root)
-    if (window.location.pathname !== '/' ) {
+    //if (window.location.pathname !== '/' &&  window.location.port === '') {
+    if (window.location.port === '') {
       // app.baseUrl = window.location.pathname.replace(/\/$/, '');
-      app.baseUrl = window.location.pathname;
-      console.log('app.baseUrl1: ',app.baseUrl);
+      // app.baseUrl = window.location.pathname;
+      app.baseUrl = '/polymer-starter-kit/';
+      console.log('app.baseUrl4: ',app.baseUrl);
       page.base(app.baseUrl.replace(/\/$/, ''));
     }
 
@@ -12394,7 +12396,7 @@ module.exports = Array.isArray || function (arr) {
 
     // add #! before urls
     page({
-      hashbang: true
+      hashbang: false
     });
 
   });
