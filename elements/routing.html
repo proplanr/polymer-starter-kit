@@ -19,7 +19,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     // Set base url if pathname is not / (root)
     if (window.location.pathname !== '/') {
-      app.baseUrl = window.location.pathname.replace(/\/$/, '');
+      // app.baseUrl = window.location.pathname.replace(/\/$/, '');
+      app.baseUrl = window.location.pathname;
+      console.log('app.baseUrl: ',app.baseUrl);
       page.base(app.baseUrl);
     }
 
@@ -54,6 +56,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     page('*', function() {
       app.$.toast.text = 'Can\'t find: ' + window.location.href  + '. Redirected you to Home Page';
       app.$.toast.show();
+      // console.log('page: ',page);
       page.redirect(app.baseUrl);
     });
 
