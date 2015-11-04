@@ -18,7 +18,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     // More info: https://visionmedia.github.io/page.js/
 
     if (window.location.port === '') {  // if production
-      console.log('app.baseUrl9: ',app.baseUrl);
+      console.log('app.baseUrl: ',app.baseUrl);
       page.base(app.baseUrl.replace(/\/$/, ''));
     }
 
@@ -58,7 +58,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     // add #! before urls
     page({
-      hashbang: false
+      hashbang: true
     });
 
   });

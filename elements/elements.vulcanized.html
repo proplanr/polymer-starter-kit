@@ -12350,7 +12350,7 @@ module.exports = Array.isArray || function (arr) {
     // More info: https://visionmedia.github.io/page.js/
 
     if (window.location.port === '') {  // if production
-      console.log('app.baseUrl9: ',app.baseUrl);
+      console.log('app.baseUrl: ',app.baseUrl);
       page.base(app.baseUrl.replace(/\/$/, ''));
     }
 
@@ -12390,7 +12390,7 @@ module.exports = Array.isArray || function (arr) {
 
     // add #! before urls
     page({
-      hashbang: false
+      hashbang: true
     });
 
   });
