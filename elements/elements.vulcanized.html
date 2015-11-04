@@ -12349,13 +12349,8 @@ module.exports = Array.isArray || function (arr) {
     // client-side router inspired by the Express router
     // More info: https://visionmedia.github.io/page.js/
 
-    // Set base url if pathname is not / (root) for production
-    //if (window.location.pathname !== '/' &&  window.location.port === '') {
     if (window.location.port === '') {  // if production
-      // Set app.baseURL to '/' if running from root in production
-      // Set app.baseURL to '/your-pathname/' if running from folder in production
-      app.baseUrl = '/polymer-starter-kit/';
-      console.log('app.baseUrl5: ',app.baseUrl);
+      console.log('app.baseUrl8: ',app.baseUrl);
       page.base(app.baseUrl.replace(/\/$/, ''));
     }
 
@@ -12390,7 +12385,6 @@ module.exports = Array.isArray || function (arr) {
     page('*', function() {
       app.$.toast.text = 'Can\'t find: ' + window.location.href  + '. Redirected you to Home Page';
       app.$.toast.show();
-      // console.log('page: ',page);
       page.redirect(app.baseUrl);
     });
 
