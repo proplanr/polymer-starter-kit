@@ -12393,9 +12393,9 @@ module.exports = Array.isArray || function (arr) {
     }
 
     // Routes
-    // page('/', scrollToTop, function() {
-    //   app.route = 'home';
-    // });
+    page('/', scrollToTop, function() {
+      app.route = 'home';
+    });
 
     page(app.baseUrl, scrollToTop, function() {
       app.route = 'home';
