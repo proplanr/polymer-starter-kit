@@ -7581,6 +7581,8 @@ this.fire('dom-change');
       /**
        * Only runs if someone invokes the factory/constructor directly
        * e.g. `new Polymer.IronMeta()`
+       *
+       * @param {{type: (string|undefined), key: (string|undefined), value}=} config
        */
       factoryImpl: function(config) {
         if (config) {
@@ -7745,6 +7747,8 @@ this.fire('dom-change');
       /**
        * Actually a factory method, not a true constructor. Only runs if
        * someone invokes it directly (via `new Polymer.IronMeta()`);
+       *
+       * @param {{type: (string|undefined), key: (string|undefined)}=} config
        */
       factoryImpl: function(config) {
         if (config) {
@@ -8115,8 +8119,8 @@ this.fire('dom-change');
    *       <svg>
    *         <defs>
    *           <g id="shape">
-   *             <rect x="50" y="50" width="50" height="50" />
-   *             <circle cx="50" cy="50" r="50" />
+   *             <rect x="12" y="0" width="12" height="24" />
+   *             <circle cx="12" cy="12" r="12" />
    *           </g>
    *         </defs>
    *       </svg>
@@ -8156,7 +8160,7 @@ this.fire('dom-change');
       }
 
     },
-    
+
     attached: function() {
       this.style.display = 'none';
     },
@@ -9662,9 +9666,8 @@ this.fire('dom-change');
       // handled). In either case, we can disregard `event.path`.
 
       if (event.target === this) {
-        var focused = event.type === 'focus';
-        this._setFocused(focused);
-      } else if (!this.shadowRoot) {
+        this._setFocused(event.type === 'focus');
+      } else if (!this.shadowRoot && !this.isLightDescendant(event.target)) {
         this.fire(event.type, {sourceEvent: event}, {
           node: this,
           bubbles: event.bubbles,
@@ -9819,14 +9822,43 @@ this.fire('dom-change');
       this._setPressed(false);
     },
 
+    __isFocusedLightDescendant: function(target) {
+      var root = Polymer.dom(this).getOwnerRoot() || document;
+      var focusedElement = root.activeElement;
+
+      // TODO(noms): remove the `this !== target` check once polymer#2610 is fixed.
+      return this !== target && this.isLightDescendant(target) && target == focusedElement;
+    },
+
+    /**
+     * @param {!KeyboardEvent} event .
+     */
     _spaceKeyDownHandler: function(event) {
       var keyboardEvent = event.detail.keyboardEvent;
+      var target = Polymer.dom(keyboardEvent).localTarget;
+
+      // Ignore the event if this is coming from a focused light child, since that
+      // element will deal with it.
+      if (this.__isFocusedLightDescendant(target))
+        return;
+
       keyboardEvent.preventDefault();
       keyboardEvent.stopImmediatePropagation();
       this._setPressed(true);
     },
 
-    _spaceKeyUpHandler: function() {
+    /**
+     * @param {!KeyboardEvent} event .
+     */
+    _spaceKeyUpHandler: function(event) {
+      var keyboardEvent = event.detail.keyboardEvent;
+      var target = Polymer.dom(keyboardEvent).localTarget;
+
+      // Ignore the event if this is coming from a focused light child, since that
+      // element will deal with it.
+      if (this.__isFocusedLightDescendant(target))
+        return;
+
       if (this.pressed) {
         this._asyncClick();
       }
@@ -12361,9 +12393,9 @@ module.exports = Array.isArray || function (arr) {
     }
 
     // Routes
-    page('/', scrollToTop, function() {
-      app.route = 'home';
-    });
+    // page('/', scrollToTop, function() {
+    //   app.route = 'home';
+    // });
 
     page(app.baseUrl, scrollToTop, function() {
       app.route = 'home';
@@ -14689,7 +14721,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 </script>
 <dom-module id="paper-scroll-header-panel" assetpath="../bower_components/paper-scroll-header-panel/">
 
-  <style>
+  <style>C
     :host {
       display: block;
       position: relative;
@@ -14705,11 +14737,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       -moz-box-sizing: border-box;
       box-sizing: border-box;
-
       -webkit-overflow-scrolling: touch;
 
       overflow-x: hidden;
       overflow-y: auto;
+
+      @apply(--paper-scroll-header-container);
     }
 
     #headerContainer {
@@ -14770,7 +14803,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   'use strict';
 
-  Polymer({
+  Polymer.PaperScrollHeaderPanel = Polymer({
 
     /**
      * Fired when the content has been scrolled.
@@ -14867,10 +14900,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       /**
-       * The state of the header. The initial value is `HEADER_STATE_EXPANDED`.
-       * Depending on the configuration and the `scrollTop` value,
+       * The state of the header. Depending on the configuration and the `scrollTop` value,
        * the header state could change to
-       * `HEADER_STATE_HIDDEN`, `HEADER_STATE_CONDENSED` and `HEADER_STATE_INTERPOLATED`
+       *      Polymer.PaperScrollHeaderPanel.HEADER_STATE_EXPANDED
+       *      Polymer.PaperScrollHeaderPanel.HEADER_STATE_HIDDEN
+       *      Polymer.PaperScrollHeaderPanel.HEADER_STATE_CONDENSED
+       *      Polymer.PaperScrollHeaderPanel.HEADER_STATE_INTERPOLATED
        */
       headerState: {
         type: Number,
@@ -14911,39 +14946,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       this._scrollHandler = this._scroll.bind(this);
       this.scroller.addEventListener('scroll', this._scrollHandler);
     },
-
-    /**
-     * The header's initial state
-     *
-     * @property HEADER_STATE_EXPANDED
-     * @type number
-     */
-    HEADER_STATE_EXPANDED: 0,
-
-    /**
-     * The header's state when it's hidden.
-     *
-     * @property HEADER_STATE_HIDDEN
-     * @type number
-     */
-    HEADER_STATE_HIDDEN: 1,
-
-    /**
-     * The header's state when it's condensed.
-     *
-     * @property HEADER_STATE_CONDENSED
-     * @type number
-     */
-    HEADER_STATE_CONDENSED: 2,
-
-    /**
-     * The header's state when its progress is somewhere between
-     * the `hidden` and `condensed` state.
-     *
-     * @property HEADER_STATE_INTERPOLATED
-     * @type number
-     */
-    HEADER_STATE_INTERPOLATED: 3,
 
     /**
      * Returns the header element.
@@ -15008,7 +15010,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
      * @param {boolean} smooth true if the scroll position should be smoothly adjusted.
      */
     scroll: function(top, smooth) {
-      // the scroll event will trigger _updateScrollState directly, 
+      // the scroll event will trigger _updateScrollState directly,
       // However, _updateScrollState relies on the previous `scrollTop` to update the states.
       // Calling _updateScrollState will ensure that the states are synced correctly.
 
@@ -15054,13 +15056,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
      * @param {boolean} smooth true if the scroll position should be smoothly adjusted.
      */
     condense: function(smooth) {
+      var ctx = Polymer.PaperScrollHeaderPanel;
       if (this.condenses && !this.fixed && !this.noReveal) {
         switch (this.headerState) {
-          case this.HEADER_STATE_HIDDEN:
+          case ctx.HEADER_STATE_HIDDEN:
             this.scroll(this.scroller.scrollTop - (this._headerMaxDelta - this._headerMargin), smooth);
           break;
-          case this.HEADER_STATE_EXPANDED:
-          case this.HEADER_STATE_INTERPOLATED:
+          case ctx.HEADER_STATE_EXPANDED:
+          case ctx.HEADER_STATE_INTERPOLATED:
             this.scroll(this._headerMargin, smooth);
           break;
         }
@@ -15179,22 +15182,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     },
 
     _updateScrollState: function(scrollTop) {
+      var ctx = Polymer.PaperScrollHeaderPanel;
       var deltaScrollTop = scrollTop - this._prevScrollTop;
       var y = Math.max(0, (this.noReveal) ? scrollTop : this._y + deltaScrollTop);
 
       if (y > this._headerMaxDelta) {
         y = this._headerMaxDelta;
-        this._setHeaderState(this.HEADER_STATE_HIDDEN);
+        this._setHeaderState(ctx.HEADER_STATE_HIDDEN);
 
       } else if (this.condenses && this._prevScrollTop >= scrollTop && scrollTop >= this._headerMargin) {
         y = Math.max(y, this._headerMargin);
-        this._setHeaderState(this.HEADER_STATE_CONDENSED);
+        this._setHeaderState(ctx.HEADER_STATE_CONDENSED);
 
       } else if (y === 0) {
-        this._setHeaderState(this.HEADER_STATE_EXPANDED);
+        this._setHeaderState(ctx.HEADER_STATE_EXPANDED);
 
       } else {
-        this._setHeaderState(this.HEADER_STATE_INTERPOLATED);
+        this._setHeaderState(ctx.HEADER_STATE_INTERPOLATED);
       }
 
       if (!this.fixed && y !== this._y) {
@@ -15205,6 +15209,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       this._y = y;
     }
   });
+
+  Polymer.PaperScrollHeaderPanel.HEADER_STATE_EXPANDED = 0;
+  Polymer.PaperScrollHeaderPanel.HEADER_STATE_HIDDEN = 1;
+  Polymer.PaperScrollHeaderPanel.HEADER_STATE_CONDENSED = 2;
+  Polymer.PaperScrollHeaderPanel.HEADER_STATE_INTERPOLATED = 3;
 
 })();
 
