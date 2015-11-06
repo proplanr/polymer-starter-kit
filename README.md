@@ -152,6 +152,37 @@ Web apps built with Polymer Starter Kit come configured with support for [Web Co
 
 Polymer uses [Bower](http://bower.io) for package management. This makes it easy to keep your elements up to date and versioned. For tooling, we use npm to manage Node.js-based dependencies.
 
+## Deploy
+
+### Github Pages
+1. Uncomment this line in app.js: `// app.baseUrl = '/polymer-starter-kit/';`  
+2. Change `app.baseUrl = '/polymer-starter-kit/';`  to `app.baseUrl = '/your-pathname/';`  
+3. Run `build-deploy-gh-pages` from command line
+4. To see changes wait 1-2 minutes then load Github pages for your app (ex: http://polymerelements.github.io/polymer-starter-kit)
+
+### Firebase
+1. Install firebase tools
+2. firebase init
+  a. Select firebase or create new one
+  b. Input dist for
+  c. xz
+3. Edit firebase.json add rewrites section
+```
+{
+  "firebase": "polymer-starter-kit",
+  "public": "dist",
+  "ignore": [
+    "firebase.json",
+    "**/.*",
+    "**/node_modules/**"
+  ],
+  "rewrites": [ {
+    "source": "**",
+    "destination": "/index.html"
+  } ]
+}
+```
+
 ## Service Worker
 
 Polymer Starter Kit offers an optional offline experience thanks to Service Worker and the [Platinum Service Worker elements](https://github.com/PolymerElements/platinum-sw). New to Service Worker? Read the following [introduction](http://www.html5rocks.com/en/tutorials/service-worker/introduction/) to understand how it works.

@@ -284,7 +284,7 @@ gulp.task('default', ['clean'], function (cb) {
     cb);
 });
 
-// Build then deploy to Github pages gh-pages branch
+// Build then deploy to GitHub pages gh-pages branch
 gulp.task('build-deploy-gh-pages', function(cb) {
   runSequence(
     'default',
@@ -292,7 +292,7 @@ gulp.task('build-deploy-gh-pages', function(cb) {
     cb);
 });
 
-// Deploy to Github pages gh-pages branch
+// Deploy to GitHub pages gh-pages branch
 gulp.task('deploy-gh-pages', function() {
   return gulp.src('./dist/**/*')
     .pipe(ghPages());
