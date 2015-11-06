@@ -12382,7 +12382,6 @@ module.exports = Array.isArray || function (arr) {
     // More info: https://visionmedia.github.io/page.js/
 
     if (window.location.port === '') {  // if production
-      console.log('app.baseUrl: ',app.baseUrl);
       page.base(app.baseUrl.replace(/\/$/, ''));
     }
 
