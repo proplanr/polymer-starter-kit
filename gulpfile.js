@@ -23,7 +23,7 @@ var glob = require('glob');
 var historyApiFallback = require('connect-history-api-fallback');
 var packageJson = require('./package.json');
 var crypto = require('crypto');
-var ghPages = require('gulp-gh-pages');
+// var ghPages = require('gulp-gh-pages');
 
 var AUTOPREFIXER_BROWSERS = [
   'ie >= 10',
@@ -295,7 +295,7 @@ gulp.task('build-deploy-gh-pages', function(cb) {
 // Deploy to GitHub pages gh-pages branch
 gulp.task('deploy-gh-pages', function() {
   return gulp.src('./dist/**/*')
-    .pipe(ghPages());
+    .pipe($.ghPages());
 });
 
 // Load tasks for web-component-tester
