@@ -14,12 +14,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   // and give it some initial binding values
   // Learn more about auto-binding templates at http://goo.gl/Dx1u2g
   var app = document.querySelector('#app');
-  
+
   app.baseUrl = '/';
   if (window.location.port === '') {  // if production
     // Set app.baseURL to '/' if running from root in production
     // Set app.baseURL to '/your-pathname/' if running from folder in production
-    app.baseUrl = '/polymer-starter-kit/';
+    // app.baseUrl = '/polymer-starter-kit/';
   }
 
   app.displayInstalledToast = function() {
