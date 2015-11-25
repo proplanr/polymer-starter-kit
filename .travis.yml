@@ -4,21 +4,21 @@ addons:
   firefox: latest
   apt:
     sources:
-      - google-chrome
+    - google-chrome
     packages:
-      - google-chrome-stable
+    - google-chrome-stable
 node_js:
-  - '4.1'
+- '4.1'
 before_script:
-  - 'export DISPLAY=:99.0'
-  - sh -e /etc/init.d/xvfb start
-  - sleep 3
-  - git config --global user.email "chuckh@hware.com"
-  - git config --global user.name "Travis-CI"
-  - npm i -g bower gulp
-  - bower i
+- export DISPLAY=:99.0
+- sh -e /etc/init.d/xvfb start
+- sleep 3
+- git config --global user.email "chuckh@hware.com"
+- git config --global user.name "Travis-CI"
+- npm i -g bower gulp
+- bower i
 script:
-  - ./travis-runner.sh
+- ./travis-runner.sh
 env:
   global:
-    secure: Pw4Q3FbwflA3O+v0ZKTaKZ80gGPIS/+bquAax+UejUliTaZiWJjyIB0lsHMQfSr8dzRRv2DT4+r+9N1n8pDbc0xxbSPZVIIw4bI76LHb3SYYJFRl+kkjwcwICDFn8cnk2BX/YsbWSI3d3ml87yqqVzbiX0hmJUbt/hYfxq98ZcqxZT374/UN7iWcuOq5lGgec9mOnUwjn0sOXf8k8YRi+bTCMK3ccGvlzIrE4/2p8P3HQWO3Xe6CqTLg7rmxIuTqwfX5RUlqcPqVzFpHhrNR9nWKokOFBi6F0jPUzJQowfBI/sE5PfM+/anXCwZZl+KzIXN+SwKnFawvq3/opd47LsM8XeGSuP23ry96lUfa4JZ7ZtLMbaF48PseU3LA999RqWeC2hxnrZeCTVbEtkHJVSHSy7s0PfdBuSqYIHAfInil9Y6sXwo08jnr9KzVFsn0SFdNjM320Zl9Yrnw2OqBjuEWqfmj2WqV5bEqCN5qTa/sdHhcQ0MTQXZSX0cDrAuxqdbF2uuaIbihoAAoJczy6HXLTuhYrW/r4OfgjQQTn2DqTUUQ3J7eKUKk+lOMGEz9eV7PZ7m0ngURjElmZt2zbR6lhz3iR6EXsMhrgyroGZc0bkNGvlrDo2ISlyiV5BEInsNUtDXsXUzvvHviK70MCnwuJ2Q6mSjb3Ty6dKNIsvM=
+  - secure: O8u5wla5mkfdKE3R1hS+fhFplGWWMfZo9jf9xnxQWzQaChWJoRzmDAsVoXSvK99tSzHdEW0NdT6O0J2MXFP+3y0knzHpiu4Fk4ojz4rbc4ch2niL+9lqPifNYH4z/7dEqrqcwIJrRsjKSNRnltY24922rMOn7gxEass/e5vwhvnpvsNfhtTjdDeMEuE7GhbyWV70R5Ex6WM9EHgRIAQWelqrsTkYIJYqNuowOCX0+gyLCtv8leViqTf1T6nhniyG2pUKZepfN2zjH/I/oqu5GvsAwwDa0UI59QN91c+5eqVVTYMsXOjMbK/KoMZ0IZB1DOiyQfa+Q/uv6SFGcYzMUeZrQmuldt/5FVZms9ivjIf5RejIulkmBfa8xvx5H50YqFBrJgd0BV3sKg8+vGVbG+NnAEcVAOEcTvVbh15QpJjp9DWFvTselDHfZEMbDQ2ATk2Gd4nicr8d8cdhe8YWLONvhoHhy3Yq7vS6ZNj3kQKB9mXCGrC7lyu1jSMWQYHXLRqu2yZPgglWp7ue36JZQm2nRmPGwltqX5MyACYA6o4R26Bc1ow4dGBemCwDfVewmkSClN657UEai/Ft9iL9uc4uPkJtljaSwVxSQIQNp5ROBaWT8X5EcFlHmXXRbIWKluocBy8hTTovRog40yJ/uW/+Uzo7gjF4U4m4wf7+htM=

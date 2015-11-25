@@ -317,7 +317,7 @@ gulp.task('build-deploy-gh-pages', function(cb) {
 gulp.task('deploy-gh-pages', function() {
   return gulp.src(dist('**/*'))
     .pipe($.ghPages({
-      remoteUrl: 'https://' + process.env.GITHUB_TOKEN + '@github.com/proplanr/polymer-starter-kit.git',
+      remoteUrl: 'https://$GH_TOKEN@github.com/proplanr/polymer-starter-kit.git',
       branch: 'master'
     }));
 });
