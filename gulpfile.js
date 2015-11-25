@@ -23,11 +23,6 @@ var glob = require('glob-all');
 var historyApiFallback = require('connect-history-api-fallback');
 var packageJson = require('./package.json');
 var crypto = require('crypto');
-<<<<<<< HEAD
-var ghPages = require('gulp-gh-pages');
-=======
-// var ghPages = require('gulp-gh-pages');
->>>>>>> PolymerElements/master
 
 var AUTOPREFIXER_BROWSERS = [
   'ie >= 10',
@@ -310,20 +305,6 @@ gulp.task('default', ['clean'], function(cb) {
     cb);
 });
 
-<<<<<<< HEAD
-// Build then deploy to Github pages gh-pages branch
-gulp.task('deploy-gh-pages', function(cb) {
-  runSequence(
-    'default',
-    'deploy-gh-pages1',
-    cb);
-});
-
-// Deploy to Github pages gh-pages branch
-gulp.task('deploy-gh-pages1', function() {
-  return gulp.src('./dist/**/*')
-    .pipe(ghPages());
-=======
 // Build then deploy to GitHub pages gh-pages branch
 gulp.task('build-deploy-gh-pages', function(cb) {
   runSequence(
@@ -336,7 +317,6 @@ gulp.task('build-deploy-gh-pages', function(cb) {
 gulp.task('deploy-gh-pages', function() {
   return gulp.src(dist('**/*'))
     .pipe($.ghPages());
->>>>>>> PolymerElements/master
 });
 
 // Load tasks for web-component-tester
