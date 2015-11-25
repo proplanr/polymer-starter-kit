@@ -316,7 +316,10 @@ gulp.task('build-deploy-gh-pages', function(cb) {
 // Deploy to GitHub pages gh-pages branch
 gulp.task('deploy-gh-pages', function() {
   return gulp.src(dist('**/*'))
-    .pipe($.ghPages());
+    .pipe($.ghPages({
+      remoteUrl: 'https://' + process.env.GITHUB_TOKEN + '@github.com/proplanr/polymer-starter-kit.git',
+      branch: 'master'
+    }));
 });
 
 // Load tasks for web-component-tester
