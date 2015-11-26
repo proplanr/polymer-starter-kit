@@ -316,7 +316,9 @@ gulp.task('build-deploy-gh-pages', function(cb) {
 // Deploy to GitHub pages gh-pages branch
 gulp.task('deploy-gh-pages', function() {
   return gulp.src(dist('**/*'))
-    .pipe($.if(process.env.GH_TOKEN, $.ghPages({
+    // Check if running task from Travis Cl, if so run using GH_TOKEN
+    // otherwise run using ghPages defaults.
+    .pipe($.if(process.env.TRAVIS === 'true', $.ghPages({
       remoteUrl: 'https://$GH_TOKEN@github.com/proplanr/polymer-starter-kit.git',
       silent: true,
       branch: 'gh-pages'
